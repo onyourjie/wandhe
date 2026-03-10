@@ -166,15 +166,15 @@
       <h2 class="reviews-title">Ulasan Pelanggan</h2>
       <div class="reviews-grid">
         {#each product.reviews as review}
-          <div class="review-card" class:has-image={!!review.image}>
+          <div class="review-card">
+            {#if review.image}
+              <img src={review.image} alt="Foto ulasan {review.author}" class="review-img" />
+            {/if}
             <div class="review-body">
               <div class="review-star">★★★★★</div>
               <p class="review-text">"{review.text}"</p>
               <p class="review-author">— {review.author}</p>
             </div>
-            {#if review.image}
-              <img src={review.image} alt="Foto ulasan {review.author}" class="review-img" />
-            {/if}
           </div>
         {/each}
       </div>
@@ -438,33 +438,30 @@
   }
   .reviews-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    align-items: stretch;
   }
   .review-card {
     background: var(--white);
     border: 1px solid var(--cream-dark);
-    padding: 24px;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 0;
-  }
-  .review-card.has-image {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 16px;
-  }
-  .review-body {
-    flex: 1;
-    min-width: 0;
+    overflow: hidden;
   }
   .review-img {
-    width: 120px;
-    height: 120px;
+    width: 100%;
+    height: 160px;
     object-fit: cover;
-    border: 1px solid var(--cream-dark);
+    object-position: top;
+    display: block;
+    border-bottom: 1px solid var(--cream-dark);
     flex-shrink: 0;
-    border-radius: 2px;
+  }
+  .review-body {
+    padding: 20px;
+    flex: 1;
   }
   .review-star {
     color: var(--brown-400);
